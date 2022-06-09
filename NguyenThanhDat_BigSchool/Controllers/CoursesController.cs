@@ -75,13 +75,13 @@ namespace NguyenThanhDat_BigSchool.Controllers
             }
             return View(courses);
         }
-        /*[Authorize]
+        [Authorize]
         public ActionResult Edit(int id)
         {
             BigSchoolContext context = new BigSchoolContext();
             var userId = User.Identity.GetUserId();
-            var course = context.Courses.Single(c => c.Id == id && c.LecturerId == userId);
-            var viewModel = new CourseViewModel
+            var course = context.Course.Single(c => c.Id == id && c.LecturerId == userId);
+            var viewModel = new Course
             {
                 Categories = context.Categories.ToList(),
                 Date = course.DateTime.ToString("dd/MM/yyyy"),
@@ -90,7 +90,7 @@ namespace NguyenThanhDat_BigSchool.Controllers
                 Place = course.Place
             };
             return View("Create", viewModel);
-        }*/
+        }
         public ActionResult LectureIamGoing()
         {
             ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager
