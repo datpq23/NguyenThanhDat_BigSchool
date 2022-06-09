@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<NguyenThanhDat_BigSchool.Models.Course>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,7 +21,7 @@
                 </div>
                 <div class="details">
                     <span class="lecture">
-                        @course.LecturerId - @course.Place
+                        @course.Name
                         @if (course.isLogin)
                         {
                             if (course.isShowFollow)

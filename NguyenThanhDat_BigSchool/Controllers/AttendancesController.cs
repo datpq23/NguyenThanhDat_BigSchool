@@ -16,17 +16,17 @@ namespace NguyenThanhDat_BigSchool.Controllers
         {
             var userID = User.Identity.GetUserId();
             BigSchoolContext context = new BigSchoolContext();
-            if (context.Attendance.Any(p => p.Attendee == userID && p.CourseId == attendanceDto.Id))
+            if (context.Attendances.Any(p => p.Attendee == userID && p.CourseId == attendanceDto.Id))
             {
                 //return BadRequest("The attendance already exists!");
                 //Xoá thông tin khoá học đã đăng ký tham gia trong bảng Attendances
-                context.Attendance.Remove(context.Attendance.SingleOrDefault
+                context.Attendances.Remove(context.Attendances.SingleOrDefault
                     (p => p.Attendee == userID && p.CourseId == attendanceDto.Id));
                 context.SaveChanges();
                 return Ok("cancel");
             }
             var attendance = new Attendance() { CourseId = attendanceDto.Id, Attendee = User.Identity.GetUserId() };
-            context.Attendance.Add(attendance);
+            context.Attendances.Add(attendance);
             context.SaveChanges();
             return Ok();
         }

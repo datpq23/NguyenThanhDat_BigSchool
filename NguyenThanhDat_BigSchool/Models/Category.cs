@@ -12,7 +12,7 @@ namespace NguyenThanhDat_BigSchool.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Category()
         {
-            Course = new HashSet<Course>();
+            Courses = new HashSet<Course>();
         }
 
         public int Id { get; set; }
@@ -22,6 +22,6 @@ namespace NguyenThanhDat_BigSchool.Models
         public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Course> Course { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
     }
 }

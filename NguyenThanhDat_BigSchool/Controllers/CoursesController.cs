@@ -17,7 +17,7 @@ namespace NguyenThanhDat_BigSchool.Controllers
             //Get List Category
             BigSchoolContext context = new BigSchoolContext();
             Course objCourse = new Course();
-            objCourse.listCategory = context.Category.ToList();
+            objCourse.listCategory = context.Categories.ToList();
 
             return View(objCourse);
         }
@@ -32,7 +32,7 @@ namespace NguyenThanhDat_BigSchool.Controllers
             ModelState.Remove("LecturerId");
             if(!ModelState.IsValid)
             {
-                objCourse.listCategory = context.Category.ToList();
+                objCourse.listCategory = context.Categories.ToList();
                 return View("Create", objCourse);
             }    
 
@@ -41,7 +41,7 @@ namespace NguyenThanhDat_BigSchool.Controllers
             objCourse.LecturerId = user.Id;
 
             //Add Vào CSDL
-            context.Course.Add(objCourse);
+            context.Courses.Add(objCourse);
             context.SaveChanges();
 
             //Trở về Home, Action Index
@@ -52,7 +52,7 @@ namespace NguyenThanhDat_BigSchool.Controllers
             BigSchoolContext context = new BigSchoolContext();
             ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager
                 <ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            var listAttendances = context.Attendance.Where(p => p.Attendee == currentUser.Id).ToList();
+            var listAttendances = context.Attendances.Where(p => p.Attendee == currentUser.Id).ToList();
             var courses = new List<Course>();
             foreach (Attendance temp in listAttendances)
             {
@@ -68,7 +68,7 @@ namespace NguyenThanhDat_BigSchool.Controllers
             ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager
                 <ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             BigSchoolContext context = new BigSchoolContext();
-            var courses = context.Course.Where(c => c.LecturerId == currentUser.Id && c.DateTime > DateTime.Now).ToList();
+            var courses = context.Courses.Where(c => c.LecturerId == currentUser.Id && c.DateTime > DateTime.Now).ToList();
             foreach (Course i in courses)
             {
                 i.LecturerId = currentUser.Name; //Name là cột đã thêm vào AspNetUser
@@ -81,10 +81,9 @@ namespace NguyenThanhDat_BigSchool.Controllers
                 <ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             BigSchoolContext context = new BigSchoolContext();
             //Danh sách giảng viên được theo dõi bởi người dùng (đăng nhập) hiện tại 
-            var listFollowee = context.Following.Where(p => p.FollowerId == currentUser.Id).ToList();
+            var listFollowee = context.Followings.Where(p => p.FollowerId == currentUser.Id).ToList();
             //danh sách các khóa học mà người dùng đã đăng ký
-            var listAttendances = context.Attendance.Where(p => p.Attendee ==
-            currentUser.Id).ToList();
+            var listAttendances = context.Attendances.Where(p => p.Attendee == currentUser.Id).ToList();
             var courses = new List<Course>();
             foreach (var course in listAttendances)
             {
@@ -93,7 +92,7 @@ namespace NguyenThanhDat_BigSchool.Controllers
                     if (item.FolloweeId == course.Course.LecturerId)
                     {
                         Course objCourse = course.Course;
-                        objCourse.LecturerId =
+                        objCourse.LectureName =
                         System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
                         .FindById(objCourse.LecturerId).Name;
                         courses.Add(objCourse);
@@ -102,7 +101,14 @@ namespace NguyenThanhDat_BigSchool.Controllers
             }
             return View(courses);
         }
-
+        public ActionResult Delete(int Id)
+        {
+            BigSchoolContext context = new BigSchoolContext();
+            var courses = context.Courses.Find(Id);
+            context.Courses.Remove(courses);
+            context.SaveChanges();
+            return RedirectToAction("Mine");
+        }
     }
 
 }

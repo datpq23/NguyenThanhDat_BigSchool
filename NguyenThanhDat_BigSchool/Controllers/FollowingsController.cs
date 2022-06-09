@@ -26,19 +26,19 @@ namespace NguyenThanhDat_BigSchool.Controllers
             }
             BigSchoolContext context = new BigSchoolContext();
             //Kiểm tra xem mã userID đã được theo dõi chưa
-            Following find = context.Following.FirstOrDefault(p => p.FollowerId == userID
+            Following find = context.Followings.FirstOrDefault(p => p.FollowerId == userID
             && p.FolloweeId == follow.FolloweeId);
             if (find != null)
             {
                 //return BadRequest("The already following exists!");
-                context.Following.Remove(context.Following.SingleOrDefault
+                context.Followings.Remove(context.Followings.SingleOrDefault
                     (p => p.FollowerId == userID && p.FolloweeId == follow.FolloweeId));
                 context.SaveChanges();
                 return Ok("cancel");
             }
             //Set object follow
             follow.FollowerId = userID;
-            context.Following.Add(follow);
+            context.Followings.Add(follow);
             context.SaveChanges();
             return Ok();
         }

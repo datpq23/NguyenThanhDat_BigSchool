@@ -12,7 +12,7 @@ namespace NguyenThanhDat_BigSchool.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Course()
         {
-            Attendance = new HashSet<Attendance>();
+            Attendances = new HashSet<Attendance>();
         }
 
         public int Id { get; set; }
@@ -29,16 +29,15 @@ namespace NguyenThanhDat_BigSchool.Models
 
         public int CategoryId { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Attendance> Attendances { get; set; }
         //Add List Category
         public List<Category> listCategory = new List<Category>();
+        public String Name;
+        public string LectureName;
         public bool isLogin = false;
         public bool isShowGoing = false;
         public bool isShowFollow = false;
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Attendance> Attendance { get; set; }
-
         public virtual Category Category { get; set; }
-
     }
 }
