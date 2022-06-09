@@ -34,9 +34,11 @@ namespace NguyenThanhDat_BigSchool.Models
         public bool isLogin = false;
         public bool isShowGoing = false;
         public bool isShowFollow = false;
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attendance> Attendance { get; set; }
 
         public virtual Category Category { get; set; }
+
     }
 }

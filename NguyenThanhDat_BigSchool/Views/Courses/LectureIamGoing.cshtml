@@ -7,21 +7,21 @@
 
 <div class="row">
     <ul class="course">
-        @foreach (var course in Model)
+        @foreach (var courses in Model)
         {
             <li>
                 <div class="date">
                     <div class="month">
-                        @course.DateTime.ToString("MM")
+                        @courses.DateTime.ToString("MM")
                     </div>
                     <div class="day">
-                        @course.DateTime.ToString("dd")
+                        @courses.DateTime.ToString("dd")
                     </div>
                 </div>
                 <div class="details">
-                    <span class="lecture">@course.LecturerId</span>
+                    <span class="lecture">@courses.LecturerId</span>
                     <br />
-                    <span class="category">@course.Category.Name</span>
+                    <span class="category">@courses.Category.Name</span>
                 </div>
             </li>
         }
